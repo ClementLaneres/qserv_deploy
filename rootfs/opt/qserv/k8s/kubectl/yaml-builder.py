@@ -67,13 +67,13 @@ def _config_logger(verbose):
 
 
 def _get_container_id(container_name):
-    for i, container in enumerate(yaml_data['spec']['containers']):
+    for i, container in enumerate(yaml_data_tpl['containers']):
         if container['name'] == container_name:
             return i
     return None
 
 def _get_init_container_id(container_name):
-    for i, container in enumerate(yaml_data['spec']['initContainers']):
+    for i, container in enumerate(yaml_data_tpl['initContainers']):
         if container['name'] == container_name:
             return i
     return None
@@ -175,6 +175,8 @@ if __name__ == "__main__":
 
         yaml_data['metadata']['name'] = config.get('spec', 'pod_name')
         yaml_data['spec']['hostname'] = config.get('spec', 'pod_name')
+
+        yaml_data_tpl = yaml_data['spec']['template']['spec']
 
         # Configure xrootd
         #
